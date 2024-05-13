@@ -344,24 +344,6 @@ h6 {
 	line-height:10px;
 }
 
-.bx-prev {
-	left: -90px !important;
-	background: url(images/arrow-left.png) no-repeat !important;
-	background-size: auto auto !important;
-	background-size: 100% 100% !important;
-}
-.bx-next {
-	right: -90px !important;
-	background: url(images/arrow-right.png) no-repeat !important;
-	background-size: auto auto !important;
-	background-size: 100% 100% !important;
-}
-.bx-wrapper {
-	border: none !important;
-	background: rgba(255, 255, 255, 0.81) !important;
-	border-radius: 5px !important;
-	box-shadow:none !important;
-}
 .slider-item {
 	padding:20px;
 }
