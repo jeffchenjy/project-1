@@ -381,7 +381,7 @@
 integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> 
 <!-- scrollIt js --> 
-<script src="js/scrollIt.min.js"></script> 
+<script src="js/scroll.min.js"></script> 
 <script src="js/wow.min.js"></script> 
 <script>
   wow = new WOW();
@@ -425,6 +425,36 @@ integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEUL
     pager: false
   });
 });
+//當視窗發生滾動事件時，檢查滾動的距離，並根據滾動距離添加或移除特定的類來修改導覽欄的外觀。
+$(window).on("scroll",function () {
+    var bodyScroll = $(window).scrollTop(),
+    navbar = $(".navbar");
+    if(bodyScroll > 50){
+      $('.navbar-logo img').attr('src','images/logo-black.png');
+      navbar.addClass("nav-scroll");
+    } else{
+      $('.navbar-logo img').attr('src','images/logo.png');
+      navbar.removeClass("nav-scroll");
+    }
+  });
+  $(window).on("load",function () {
+	  var bodyScroll = $(window).scrollTop(),
+	  navbar = $(".navbar");
+	  if(bodyScroll > 50){
+	    $('.navbar-logo img').attr('src','images/logo-black.png');
+	    navbar.addClass("nav-scroll");
+	  } else{
+	    $('.navbar-logo img').attr('src','images/logo.png');
+	    navbar.removeClass("nav-scroll");
+	  }
+	  $.scrollIt({
+	    easing: 'swing',      // the easing function for animation
+	    scrollTime: 900,       // how long (in ms) the animation takes
+	    activeClass: 'active', // class given to the active nav element
+	    onPageChange: null,    // function(pageIndex) that is called when page is changed
+	    topOffset: -63
+	  });
+  });
 
   // 獲取按鈕元素
   const downloadButton = document.getElementById('downloadButton');
