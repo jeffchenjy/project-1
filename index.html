@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IoT Car Controller</title>
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" 
+  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <!-- local CSS -->
   <link rel="stylesheet" type="text/css" href="style.css"/>
   <link rel="stylesheet" href="css/animate.css">
@@ -361,14 +362,13 @@
       </div>
     </div>
   </section>
-<!-------Author End-------> 
-
+<!-------Developer End-------> 
 <!-------footer Start------->
-  <footer class="footer-copy">
+  <footer class="footer">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <p>2024 &copy; IoT Car Controller. Website Designed by Jhih Yong, Chen</p>
+          <p>2024 IoT Car Controller</p>
         </div>
       </div>
     </div>
@@ -377,8 +377,8 @@
 <button type="button" id="BackTop" class="toTop-arrow"></button>
 <!-- jquery and bootstrap js --> 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-  integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" 
+integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script> 
 <!-- scrollIt js --> 
 <script src="js/scrollIt.min.js"></script> 
@@ -388,74 +388,44 @@
 	wow.init();
   //實現點擊圖標彈出視窗和控制輪播功能。
   $(document).ready(function(e) {
-    //設置了點擊事件，當點擊 #video-icon 元素時，顯示 .video-popup 彈出視窗，並將 .iframe-src 元素滑下顯示。
-	  $('#video-icon').on('click',function(e){
-	    e.preventDefault();
-	    $('.video-popup').css('display','flex');
-	    $('.iframe-src').slideDown();
-	  });
-    $('#video-icon-2').on('click',function(e){
-	    e.preventDefault();
-	    $('.video-popup-2').css('display','flex');
-	    $('.iframe-src').slideDown();
-	  });
-    //設置了點擊事件，當點擊 .video-popup 彈出視窗時，檢查點擊的目標元素是否為 IFRAME，
-    //如果不是則隱藏 .video-popup 彈出視窗，並將其中的 iframe 元素的 src 屬性設置為空，然後重新設置為原始的 video_src。
-	  $('.video-popup').on('click',function(e){
-	    var $target = e.target.nodeName;
-	    var video_src = $(this).find('iframe').attr('src');
-	    if($target != 'IFRAME'){
-	    $('.video-popup').fadeOut();
-	    $('.iframe-src').slideUp();
-	    $('.video-popup iframe').attr('src'," ");
-	    $('.video-popup iframe').attr('src',video_src);
-	  }
-	  });
-    $('.video-popup-2').on('click',function(e){
-	    var $target = e.target.nodeName;
-	    var video_src = $(this).find('iframe').attr('src');
-	    if($target != 'IFRAME'){
-	    $('.video-popup-2').fadeOut();
-	    $('.iframe-src').slideUp();
-	    $('.video-popup-2 iframe').attr('src'," ");
-	    $('.video-popup-2 iframe').attr('src',video_src);
-	  }
-	  });
-    // 初始化了一個 bxSlider 輪播插件，設置了分頁器為隱藏狀態。
-	  $('.slider').bxSlider({
-	    pager: false
-	  });
+  // 定義通用函數，用於點擊事件處理
+  function handleVideoPopupClick($popup, $iframe) {
+    return function(e) {
+      var $target = e.target.nodeName;
+      var video_src = $popup.find('iframe').attr('src');
+      if ($target != 'IFRAME') {
+        $popup.fadeOut();
+        $iframe.slideUp();
+        $popup.find('iframe').attr('src', "");
+        $popup.find('iframe').attr('src', video_src);
+      }
+    };
+  }
+  
+  // 綁定點擊事件處理函數到 #video-icon 元素
+  $('#video-icon').on('click', function(e) {
+    e.preventDefault();
+    $('.video-popup').css('display', 'flex');
+    $('.iframe-src').slideDown();
   });
-  //當視窗發生滾動事件時，檢查滾動的距離，並根據滾動距離添加或移除特定的類來修改導覽欄的外觀。
-  $(window).on("scroll",function () {
-    var bodyScroll = $(window).scrollTop(),
-    navbar = $(".navbar");
-    if(bodyScroll > 50){
-      $('.navbar-logo img').attr('src','images/logo-black.png');
-      navbar.addClass("nav-scroll");
-    } else{
-      $('.navbar-logo img').attr('src','images/logo.png');
-      navbar.removeClass("nav-scroll");
-    }
+
+  // 綁定點擊事件處理函數到 #video-icon-2 元素
+  $('#video-icon-2').on('click', function(e) {
+    e.preventDefault();
+    $('.video-popup-2').css('display', 'flex');
+    $('.iframe-src').slideDown();
   });
-  $(window).on("load",function () {
-	  var bodyScroll = $(window).scrollTop(),
-	  navbar = $(".navbar");
-	  if(bodyScroll > 50){
-	    $('.navbar-logo img').attr('src','images/logo-black.png');
-	    navbar.addClass("nav-scroll");
-	  } else{
-	    $('.navbar-logo img').attr('src','images/logo-white.png');
-	    navbar.removeClass("nav-scroll");
-	  }
-	  $.scrollIt({
-	    easing: 'swing',      // the easing function for animation
-	    scrollTime: 900,       // how long (in ms) the animation takes
-	    activeClass: 'active', // class given to the active nav element
-	    onPageChange: null,    // function(pageIndex) that is called when page is changed
-	    topOffset: -63
-	  });
+
+  // 綁定點擊事件處理函數到 .video-popup 和 .video-popup-2 元素
+  $('.video-popup').on('click', handleVideoPopupClick($('.video-popup'), $('.iframe-src')));
+  $('.video-popup-2').on('click', handleVideoPopupClick($('.video-popup-2'), $('.iframe-src')));
+
+  // 初始化 bxSlider 輪播插件
+  $('.slider').bxSlider({
+    pager: false
   });
+});
+
   // 獲取按鈕元素
   const downloadButton = document.getElementById('downloadButton');
    // 添加點擊事件監聽器
